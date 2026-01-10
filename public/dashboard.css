@@ -1,0 +1,107 @@
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+
+#h11 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+#p1 {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards;
+  animation-delay: 0.2s;
+}
+
+#container {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  max-width: 900px;
+}
+
+ul {
+  list-style: none;
+}
+
+#habitList li {
+  background: rgba(255,255,255,0.15);
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+#habitList li:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+#logContainer {
+  flex: 1;
+}
+
+#logList li {
+  background: rgba(255,255,255,0.12);
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
+#logoutBtn {
+  margin-bottom: 20px;
+  background: rgba(255,255,255,0.9);
+  color: #007acc;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+#logoutBtn:hover {
+  background: #007acc;
+  color: white;
+}
+.actionBtn {
+  margin-top: 10px;
+  background: rgba(255,255,255,0.9);
+  color: #007acc;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.actionBtn:hover {
+  background: #007acc;
+  color: white;
+}
+
+#addHabitBtn {
+  margin-bottom: 20px;
+}
+
