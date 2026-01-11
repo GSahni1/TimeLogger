@@ -3,6 +3,16 @@ const logList = document.getElementById('logList');
 const logTitle = document.getElementById('logTitle');
 const logoutBtn = document.getElementById('logoutBtn');
 
+const changeTzBtn = document.getElementById('changeTzBtn');
+const tzModal = document.getElementById('tzModal');
+const tzBackdrop = document.getElementById('tzModalBackdrop');
+const tzCard = document.getElementById('tzModalCard');
+const tzSelect = document.getElementById('tzSelect');
+const tzSearch = document.getElementById('tzSearch');
+const tzSaveBtn = document.getElementById('tzSaveBtn');
+const tzCancelBtn = document.getElementById('tzCancelBtn');
+
+
 logoutBtn.onclick = async () => {
   try {
     await fetch('/logout', {
@@ -37,6 +47,7 @@ addHabitBtn.onclick = async () => {
 
 
 let userTimezone = 'UTC';
+let selectedHabit = null; 
 
 //calling refresh token endpoint to get new access token
 async function refreshAccessToken() {
@@ -152,6 +163,7 @@ async function renderHabits() {
 
 
 async function renderLogs(habit) {
+  selectedHabit = habit;  
   logTitle.textContent = habit.title;
   logList.innerHTML = '';
 
@@ -180,3 +192,84 @@ async function renderLogs(habit) {
     window.location.href = '/login';
   }
 })();
+
+function getTimezones() {
+  if (typeof Intl !== 'undefined' && Intl.supportedValuesOf) {
+    try { return Intl.supportedValuesOf('timeZone'); } catch (e) { /* ignore */ }
+  }
+  return [
+    'UTC','America/New_York','America/Los_Angeles','Europe/London','Europe/Paris',
+    'Asia/Tokyo','Asia/Shanghai','Australia/Sydney','America/Chicago','America/Denver'
+  ];
+}
+
+function openTzModal() {
+  if (tzSelect.options.length === 0) {
+    const zones = getTimezones();
+    zones.forEach(z => {
+      const opt = document.createElement('option');
+      opt.value = z;
+      opt.textContent = z;
+      tzSelect.appendChild(opt);
+    });
+  }
+
+  for (let i=0; i<tzSelect.options.length; i++) {
+    if (tzSelect.options[i].value === userTimezone) { tzSelect.selectedIndex = i; break; }
+  }
+
+  tzSearch.value = '';
+  tzModal.style.display = 'flex';
+  tzModal.setAttribute('aria-hidden', 'false');
+  tzSearch.focus();
+}
+
+function closeTzModal() {
+  tzModal.style.display = 'none';
+  tzModal.setAttribute('aria-hidden', 'true');
+}
+
+tzSearch.addEventListener('input', () => {
+  const q = tzSearch.value.trim().toLowerCase();
+  for (let opt of tzSelect.options) {
+    opt.hidden = q && !opt.value.toLowerCase().includes(q);
+  }
+  const first = Array.from(tzSelect.options).find(o => !o.hidden);
+  if (first) tzSelect.value = first.value;
+});
+
+tzCancelBtn.addEventListener('click', closeTzModal);
+tzBackdrop.addEventListener('click', closeTzModal);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && tzModal.style.display !== 'none') closeTzModal();
+});
+
+tzSaveBtn.addEventListener('click', async () => {
+  const tz = tzSelect.value;
+  if (!tz) return alert('Please choose a timezone.');
+
+  try {
+    await refreshAccessToken();
+
+     const res = await fetch('/api/me', {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ timezone: tz })
+    });
+
+    if (!res.ok) throw new Error('Failed to update timezone on server');
+
+    userTimezone = tz;
+
+    await renderHabits();
+    if (selectedHabit) await renderLogs(selectedHabit);
+
+    closeTzModal();
+  } catch (err) {
+    alert(err.message || 'Unable to save timezone');
+  }
+});
+
+changeTzBtn.addEventListener('click', openTzModal);

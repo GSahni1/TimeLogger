@@ -94,14 +94,37 @@ ul {
   font-weight: 600;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: transform .08s ease;
 }
 
 .actionBtn:hover {
   background: #007acc;
   color: white;
+  transform: translateY(-2px);
 }
 
 #addHabitBtn {
   margin-bottom: 20px;
 }
 
+#tzModal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2000; }
+#tzModalBackdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+#tzModalCard {
+  position: relative;
+  z-index: 2010;
+  background: white;
+  color: #0b2540;
+  width: min(720px, 92%);
+  max-width: 720px;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(11,37,64,0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeIn 0.14s ease both;
+}
+#tzModalCard h3 { margin-bottom: 4px; font-size: 1.1rem; }
+#tzSearch { padding: 8px; border-radius: 8px; border: 1px solid rgba(11,37,64,0.08); }
+#tzSelect { width: 100%; border-radius: 8px; padding: 8px; border: 1px solid rgba(11,37,64,0.08); font-size: 0.95rem; }
+#tzActions { display:flex; gap:10px; justify-content:flex-end; margin-top:6px; }

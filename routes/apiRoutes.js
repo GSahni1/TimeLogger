@@ -85,4 +85,33 @@ router.post('/logs', (req, res) => {
     });
 });
 
+router.patch('/me', (req, res) => {
+  const token = req.cookies.accessToken;
+  if (!token) return res.status(401).json({ message: 'No token provided' });
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decoded) => {
+    if (err) return res.status(403).json({ message: 'Failed to authenticate token' });
+
+    const { timezone } = req.body;
+    try {
+      const updatedUser = await User.findByIdAndUpdate(
+        decoded.userId,
+        { timezone },
+        { new: true }
+      ).select('-password -refreshToken'); // remove sensitive fields
+
+      if (!updatedUser) return res.status(404).json({ message: 'User not found' });
+
+      res.json({
+        id: updatedUser._id,
+        username: updatedUser.username,
+        timezone: updatedUser.timezone
+      });
+    } catch (error) {
+      console.error('Failed to update timezone:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+});
+
 module.exports = router;

@@ -10,7 +10,20 @@
   <p id="p1">Click a habit to see its logs</p>
   <button id="logoutBtn">Logout</button>
   <button id="addHabitBtn" class="actionBtn">+ New Habit</button>
+  <button id="changeTzBtn" class="actionBtn">Change Timezone</button>
 
+  <div id="tzModal" aria-hidden="true" style="display:none;">
+    <div id="tzModalBackdrop"></div>
+    <div id="tzModalCard" role="dialog" aria-modal="true" aria-labelledby="tzModalTitle">
+      <h3 id="tzModalTitle">Choose display timezone</h3>
+      <input id="tzSearch" type="text" placeholder="Search timezones (e.g. America/New_York)" />
+      <select id="tzSelect" size="8"></select>
+      <div id="tzActions">
+        <button id="tzSaveBtn" class="actionBtn">Save</button>
+        <button id="tzCancelBtn" class="actionBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
   <div id="container">
     <ul id="habitList"></ul>
     <div id="logContainer">
