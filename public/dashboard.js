@@ -123,6 +123,7 @@ async function renderHabits() {
 
   habits.forEach(habit => {
     const li = document.createElement('li');
+    li.onclick = () => renderLogs(habit);
 
     const title = document.createElement('div');
     title.textContent = habit.title;
@@ -133,9 +134,6 @@ async function renderHabits() {
     desc.textContent = habit.description || '';
     desc.style.fontSize = '0.9rem';
     desc.style.opacity = '0.9';
-
-    title.onclick = () => renderLogs(habit);
-    desc.onclick = () => renderLogs(habit);
 
 
     const addLogBtn = document.createElement('button');

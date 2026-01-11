@@ -79,6 +79,17 @@ ul {
   cursor: pointer;
   animation: fadeIn 0.5s ease forwards;
 }
+#changeTzBtn {
+  margin-bottom: 20px;
+  background: rgba(255,255,255,0.9);
+  color: #007acc;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  animation: fadeIn 0.5s ease forwards;
+}
 
 #logoutBtn:hover {
   background: #007acc;
@@ -128,3 +139,17 @@ ul {
 #tzSearch { padding: 8px; border-radius: 8px; border: 1px solid rgba(11,37,64,0.08); }
 #tzSelect { width: 100%; border-radius: 8px; padding: 8px; border: 1px solid rgba(11,37,64,0.08); font-size: 0.95rem; }
 #tzActions { display:flex; gap:10px; justify-content:flex-end; margin-top:6px; }
+
+#topControls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap; 
+}
+
+#topControls .actionBtn {
+  min-width: 120px;
+  text-align: center;
+}
