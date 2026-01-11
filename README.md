@@ -4,7 +4,7 @@ TimeLogger is a productivity-focused time tracking application designed to help 
 
 ## Features
 
-- **User Authentication**: Secure Sign Up and Login functionality using bcrypt and JWT with a short lived access token and a relatively longer lived refresh token.
+- **User Authentication**: Secure Sign Up and Login functionality using bcrypt and JWT with a short lived access token and a relatively longer lived refresh token. This is an optimal and tested system that mitigates the threats of XSS and CSRF.
 - **Dashboard**: dashboard for logging and viewing time entries.(adding data visualization is on horizon)
 - **Responsive Interface**: Clean and accessible UI built with vanilla CSS.
 
