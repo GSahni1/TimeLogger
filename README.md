@@ -15,6 +15,8 @@ TimeLogger is a productivity-focused time tracking application designed to help 
 - **Database**: MongoDB (Mongoose)
 - **Authentication**: JSON Web Tokens (JWT)
 
+![A screenshot from the app showing logs of different habits](./images/screenshot)
+
 ## Getting Started
 
 ### Prerequisites
