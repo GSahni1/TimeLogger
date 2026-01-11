@@ -17,16 +17,27 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use(express.static('public'));
+
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
+    if (req.cookies?.jwt) {
+        res.redirect(302, '/dashboard');
+    }
+    else{res.sendFile(path.join(__dirname, 'public/index.html'))};
 });
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/login.html'));
+    if (req.cookies?.jwt) {
+        res.redirect(302, '/dashboard');
+    } else{
+        res.sendFile(path.join(__dirname, 'public/login.html'));
+    }
 });
 app.get('/signup', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/signup.html'));
+    if (req.cookies?.jwt) {
+        res.redirect(302, '/dashboard');
+    } else{
+        res.sendFile(path.join(__dirname, 'public/signup.html'));
+    }
 });
 app.post('/login', loginHandler);
 app.post('/signup', signupHandler);
@@ -36,5 +47,7 @@ app.get('/dashboard', (req, res) => {
 app.post('/refresh', refreshHandler);
 app.use('/api', require('./routes/apiRoutes'));
 app.post('/logout', logoutHandler);
+
+app.use(express.static('public'));
 
 app.listen(port);

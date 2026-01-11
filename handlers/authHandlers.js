@@ -31,6 +31,7 @@ const loginHandler = async (req, res) => {
         maxAge: 24 * 60 * 60 * 1000
     });
     res.redirect(302, '/dashboard');
+
     
 };
 const signupHandler = async (req, res) => {
@@ -66,6 +67,7 @@ const signupHandler = async (req, res) => {
     }catch (error) {
         res.status(500).json({ message: error.message });
     }
+     
 };
 
 module.exports = { loginHandler, signupHandler };
