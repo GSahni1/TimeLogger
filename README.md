@@ -24,11 +24,7 @@ TimeLogger is a productivity-focused time tracking application designed to help 
 
 ### Installation
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd timeBetter
-   ```
+1. Clone the repository
 
 2. Install dependencies:
    ```bash
