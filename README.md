@@ -24,7 +24,7 @@ TimeLogger is a productivity-focused time tracking application designed to help 
 
 ### Installation
 
-1. Clone the repository
+1. Clone the repository and navigate to the local folder in your terminal.
 
 2. Install dependencies:
    ```bash
